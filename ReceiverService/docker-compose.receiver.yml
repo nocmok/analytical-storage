@@ -1,0 +1,10 @@
+version: "3.0"
+
+services:
+  receiver-service:
+    image: dachertanov/receiver-service:latest
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: host.docker.internal:9093
+      JAVA_OPTS: "-Xmx1G -Xms500m"
+    ports:
+      - 8081:8080
