@@ -1,0 +1,25 @@
+spring:
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      buffer-memory: ${KAFKA_BUFFER_MEMORY:33554432}
+      batch-size: ${KAFKA_BATCH_SIZE:1048576}
+      linger-ms-config: ${KAFKA_LINGER_MS_CONFIG:1000}
+    bootstrap-servers: localhost:9092
+
+kafka:
+  topics:
+    receiver-service:
+      name: ${RECEIVER_TOPIC_NAME:Test.Test}
+      numPartitions: ${RECEIVER_TOPIC_NUM_PARTITIONS:3}
+      replicationFactor: ${RECEIVER_TOPIC_REPLICATION_FACTOR:1}
+
+logging:
+  level:
+    ru:
+      analytical:
+        storage:
+          receiver:
+            kafka:
+              producer: ${LOGGING_LEVEL_KAFKA:DEBUG}
