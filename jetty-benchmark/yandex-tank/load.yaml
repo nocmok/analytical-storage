@@ -1,0 +1,16 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: host.docker.internal:8080 # [Target's address]:[target's port]
+  ammo_type: phantom
+  ammofile: ammofile.txt
+  instances: 10000
+  load_profile:
+    load_type: rps # schedule load by defining requests per second
+    schedule: line(500,1000,2m) # starting from 1rps growing linearly to 10rps during 10 minutes
+console:
+  enabled: true # enable console output
+telegraf:
+  enabled: false # let's disable telegraf monitoring for the first time

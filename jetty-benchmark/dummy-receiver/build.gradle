@@ -1,0 +1,35 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    implementation.exclude module: "spring-boot-starter-tomcat"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-jetty'
+//    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.3'
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.3'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.8.3'
+    implementation 'io.micrometer:micrometer-registry-jmx:1.8.3'
+
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

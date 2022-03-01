@@ -1,0 +1,2 @@
+#!/bin/bash
+yes "POST||/||test||this is 100 byte payloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooad" | head -n 1000000 | python3 $(dirname $0)/make_ammo.py > $(dirname $0)/ammofile.txt
