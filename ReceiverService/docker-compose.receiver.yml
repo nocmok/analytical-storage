@@ -8,3 +8,4 @@ services:
       JAVA_OPTS: "-Xmx1G -Xms500m"
     ports:
       - 8081:8080
+      - 9100:9100
