@@ -1,0 +1,16 @@
+version: '3.8'
+
+# Single node clickhouse
+services:
+  ch-node:
+    container_name: ch_node
+    image: lunalabsltd/clickhouse-server:21.7.2.7-arm
+    ports:
+      - 19001:9000
+      - 18124:8123
+      - 19101:9010
+    volumes:
+      - ./data:/var/lib/clickhouse
+      - ./logs:/var/log/clickhouse-server
+      - ./config.xml:/etc/clickhouse-server/config.xml
+      - ./users.xml:/etc/clickhouse-server/users.xml

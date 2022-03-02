@@ -1,0 +1,30 @@
+<yandex>
+
+    <listen_host>::</listen_host>
+    <tcp_port>9000</tcp_port>
+    <interserver_http_port>9010</interserver_http_port>
+    <http_port>8123</http_port>
+    <mark_cache_size>104857600</mark_cache_size>
+    <path>/var/lib/clickhouse/</path>
+    <tmp_path>/var/lib/clickhouse/tmp/</tmp_path>
+    <user_files_path>/var/lib/clickhouse/user_files/</user_files_path>
+    <access_control_path>/var/lib/clickhouse/access/</access_control_path>
+    <users_config>users.xml</users_config>
+    <default_profile>default</default_profile>
+    <default_database>default</default_database>
+
+    <remote_servers>
+        
+        <cluster>
+            <shard>
+                <replica>
+                    <host>host.docker.internal</host>
+                    <port>9001</port>
+                    <user>default</user>
+                    <password></password>
+                </replica>
+            </shard>
+        </cluster>
+
+    </remote_servers>
+</yandex>
