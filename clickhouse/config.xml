@@ -13,23 +13,4 @@
     <default_profile>default</default_profile>
     <default_database>default</default_database>
 
-    <remote_servers>
-        
-        <cluster>
-            <shard>
-                <replica>
-                    <host>host.docker.internal</host>
-                    <port>9001</port>
-                    <user>default</user>
-                    <password></password>
-                </replica>
-            </shard>
-        </cluster>
-
-    </remote_servers>
-
-    <kafka>
-        
-    </kafka>
-
 </yandex>
