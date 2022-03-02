@@ -6,7 +6,7 @@ spring:
       buffer-memory: ${KAFKA_BUFFER_MEMORY:33554432}
       batch-size: ${KAFKA_BATCH_SIZE:1048576}
       linger-ms-config: ${KAFKA_LINGER_MS_CONFIG:1000}
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:29092
 
 management:
   endpoints:
@@ -27,7 +27,7 @@ management:
 kafka:
   topics:
     receiver-service:
-      name: ${RECEIVER_TOPIC_NAME:Test.Test}
+      name: ${RECEIVER_TOPIC_NAME:ru.analytical.storage.event}
       numPartitions: ${RECEIVER_TOPIC_NUM_PARTITIONS:3}
       replicationFactor: ${RECEIVER_TOPIC_REPLICATION_FACTOR:1}
 

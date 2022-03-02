@@ -2,10 +2,13 @@ version: "3.0"
 
 services:
   receiver-service:
-    image: dachertanov/receiver-service:latest
+    build: .
     environment:
-      SPRING_KAFKA_BOOTSTRAP-SERVERS: host.docker.internal:9093
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: host.docker.internal:29092
       JAVA_OPTS: "-Xmx1G -Xms500m"
+      RECEIVER_TOPIC_NAME: "ru.analytical.storage.event"
+      RECEIVER_TOPIC_NUM_PARTITIONS: 3
+      RECEIVER_TOPIC_REPLICATION_FACTOR: 1
     ports:
       - 8081:8080
       - 9100:9100

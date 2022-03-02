@@ -51,7 +51,7 @@ public class UserEventsProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, Object> firebaseKafkaTemplate() {
+    public KafkaTemplate<String, Object> userEventsKafkaTemplate() {
         var kafkaTemplate = new KafkaTemplate<>(userEventsProducerFactory());
         kafkaTemplate.setDefaultTopic(topicName);
 
