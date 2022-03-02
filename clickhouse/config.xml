@@ -27,4 +27,9 @@
         </cluster>
 
     </remote_servers>
+
+    <kafka>
+        
+    </kafka>
+
 </yandex>
