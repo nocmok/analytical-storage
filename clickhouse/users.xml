@@ -1,0 +1,22 @@
+<yandex>
+
+    <profiles>
+        <default>
+            <readonly>0</readonly>
+            <optimize_skip_unused_shards>1</optimize_skip_unused_shards>
+        </default>
+    </profiles>
+
+    <users>
+        <default>
+            <password></password>
+            <profile>default</profile>
+            <default_database>default</default_database>
+            <access_management>1</access_management>
+            <networks>
+                <ip>::/0</ip>
+            </networks>
+        </default>    
+    </users>
+
+</yandex>
