@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  zookeeper-0:
+    image: zookeeper:3.7.0
+    environment:
+      - ZOO_AUTOPURGE_PURGEINTERVAL=1
+      - ZOO_AUTOPURGE_SNAPRETAINCOUNT=3
+      - JVMFLAGS=-Xmx1G -Xms128M
+      - ZOO_CFG_EXTRA=clientPort=2181 metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=9101
+      - ZOO_LOG4J_PROP=INFO, ROLLINGFILE
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+      - 8080:8080
+      - 9101:9101
+    volumes:
+      - ./logs:/logs
