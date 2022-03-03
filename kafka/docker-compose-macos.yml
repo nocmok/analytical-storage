@@ -15,8 +15,7 @@ services:
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
       - KAFKA_CREATE_TOPICS=ru.analytical.storage.event:3:1
-      - JMX_PORT=7000
-      - KAFKA_OPTS=-javaagent:usr/app/jmx_prometheus_javaagent.jar=9102:/usr/app/prom-jmx-agent-config.yml
+      - EXTRA_ARGS=-javaagent:usr/app/jmx_prometheus_javaagent.jar=9102:/usr/app/prom-jmx-agent-config.yml
       - KAFKA_HEAP_OPTS=-Xmx1G -Xms512M
     volumes:
      - ./logs:/opt/kafka/logs
