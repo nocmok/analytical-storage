@@ -1,0 +1,25 @@
+{
+  "name" : "cassandra_sink_connector",
+  "config" : {
+
+    "key.converter.schemas.enable" : false,
+    "value.converter.schemas.enable" : false,
+
+    "transforms" : [ "RegexRouter" ],
+    "transform.RegexRouter.type" : "org.apache.kafka.connect.transforms.RegexRouter",
+    "transform.RegexRouter.regex" : "ru\\.analytical\\.storage\\.event",
+    "transform.RegexRouter.replacement" : "user_event",
+
+    "connector.class" : "io.confluent.connect.cassandra.CassandraSinkConnector",
+    "tasks.max" : "1",
+    "topics" : "ru.analytical.storage.event",
+    "cassandra.contact.points" : [ "192.168.0.103" ],
+    "cassandra.port" : 9042,
+    "cassandra.local.datacenter" : "vla",
+    "cassandra.security" : "NONE",
+    "cassandra.keyspace" : "kion",
+    "cassandra.consistency.level" : "LOCAL_QUORUM",
+    "cassandra.deletes.enabled" : false,
+    "cassandra.write.mode" : "Insert"
+  }
+}
