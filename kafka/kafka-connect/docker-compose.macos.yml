@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.1'
 
 services:
   kafka-connect:
@@ -6,16 +6,16 @@ services:
     ports:
       - 8083:8083
     environment:
-      CONNECT_BOOTSTRAP_SERVERS: 192.168.0.103:29092
+      CONNECT_BOOTSTRAP_SERVERS: 192.168.0.108:29092
       CONNECT_REST_PORT: 8083
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connect-jars
       CONNECT_GROUP_ID: kafka-connect
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_REST_ADVERTISED_HOST_NAME: 192.168.0.103
-      CONNECT_CONFIG_STORAGE_TOPIC: cconnect.configs
-      CONNECT_OFFSET_STORAGE_TOPIC: cconnect.offsets
-      CONNECT_STATUS_STORAGE_TOPIC: cconnect.status
+      CONNECT_REST_ADVERTISED_HOST_NAME: 192.168.0.108
+      CONNECT_CONFIG_STORAGE_TOPIC: connect.configs
+      CONNECT_OFFSET_STORAGE_TOPIC: connect.offsets
+      CONNECT_STATUS_STORAGE_TOPIC: connect.status
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"

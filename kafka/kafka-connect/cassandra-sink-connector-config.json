@@ -1,24 +1,33 @@
 {
   "name" : "cassandra_sink_connector",
   "config" : {
+    "confluent.topic.bootstrap.servers" : "kafka:29092",
+    "confluent.topic.replication.factor" : "1",
 
+    "connector.class" : "io.confluent.connect.cassandra.CassandraSinkConnector",
+    "topic.user_event.connect.user_event.mapping": "user_id=value.user_id, video_id=value.video_id, event_type=value.event_type, event_time=value.event_time",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "key.converter.schemas.enable" : false,
     "value.converter.schemas.enable" : false,
 
-    "transforms" : [ "RegexRouter" ],
-    "transform.RegexRouter.type" : "org.apache.kafka.connect.transforms.RegexRouter",
-    "transform.RegexRouter.regex" : "ru\\.analytical\\.storage\\.event",
-    "transform.RegexRouter.replacement" : "user_event",
+    "transforms": "ValueToKey,RegexRouter",
+    "transforms.ValueToKey.type":"org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.ValueToKey.fields":"user_id",
+    "transforms.RegexRouter.type" : "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.RegexRouter.regex" : "ru\\.analytical\\.storage\\.event",
+    "transforms.RegexRouter.replacement" : "user_event",
 
-    "connector.class" : "io.confluent.connect.cassandra.CassandraSinkConnector",
     "tasks.max" : "1",
     "topics" : "ru.analytical.storage.event",
-    "cassandra.contact.points" : [ "192.168.0.103" ],
+    "cassandra.contact.points" : "cassandra-node-1",
     "cassandra.port" : 9042,
-    "cassandra.local.datacenter" : "vla",
+    "cassandra.local.datacenter" : "datacenter1",
     "cassandra.security" : "NONE",
     "cassandra.keyspace" : "kion",
-    "cassandra.consistency.level" : "LOCAL_QUORUM",
+
+    // Поменять на LOCAL_QUORUM, если работаем с кластером
+    "cassandra.consistency.level" : "ONE",
     "cassandra.deletes.enabled" : false,
     "cassandra.write.mode" : "Insert"
   }
