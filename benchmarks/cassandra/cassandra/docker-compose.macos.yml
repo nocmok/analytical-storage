@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+
+  cassandra:
+    image: cassandra:3.11
+    container_name: 'cassandra'
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+    volumes:
+      # - ./cassandra.yaml:/etc/cassandra/cassandra.yaml
+      - ./data:/var/lib/cassandra
+    ports:
+      - 9042:9042
+    networks:
+      - cassandra_network
+
+  stargate:
+    image: stargateio/stargate-3_11:v1.0.50
+    container_name: 'stargate-cassandra'
+    depends_on:
+      - cassandra
+    environment:
+      - DATACENTER_NAME=datacenter1
+      - ENABLE_AUTH=false
+      - CLUSTER_NAME=cassandra-cluster
+      - CLUSTER_VERSION=3.11
+      - SEED=cassandra
+      - SIMPLE_SNITCH=true
+    ports:
+      - 9049:9042
+      - 8081:8081
+      - 8082:8082
+    networks:
+      - cassandra_network
+
+networks:
+  cassandra_network:

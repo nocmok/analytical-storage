@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  yandex-tank:
+    container_name: yandex-tank
+    image: direvius/yandex-tank:latest
+    volumes:
+      - ./loadtest:/var/loadtest
+    deploy:
+      resources:
+        limits:
+          cpus: '7'
+          memory: 1gb
+
+  
