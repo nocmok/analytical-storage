@@ -3,6 +3,7 @@ version: '3.8'
 services:
   zookeeper-0:
     image: zookeeper:3.7.0
+    container_name: 'zookeeper-0'
     environment:
       - ZOO_AUTOPURGE_PURGEINTERVAL=1
       - ZOO_AUTOPURGE_SNAPRETAINCOUNT=3
@@ -17,3 +18,10 @@ services:
       - 9101:9101
     volumes:
       - ./logs:/logs
+    networks:
+      - common-network
+
+networks:
+  common-network:
+    driver: bridge
+    name: common-network

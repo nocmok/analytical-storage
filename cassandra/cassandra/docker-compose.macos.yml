@@ -17,7 +17,7 @@ services:
     ports:
       - 9041:9042
     networks:
-      - cassandra_network
+      - common-network
 
   cassandra-node-2:
     image: cassandra:3.11
@@ -34,7 +34,7 @@ services:
     ports:
       - 9042:9042
     networks:
-      - cassandra_network
+      - common-network
 
   cassandra-node-3:
     image: cassandra:3.11
@@ -51,7 +51,7 @@ services:
     ports:
       - 9043:9042
     networks:
-      - cassandra_network
+      - common-network
 
   stargate:
     image: stargateio/stargate-3_11:v1.0.50
@@ -69,9 +69,9 @@ services:
       - 8081:8081
       - 8082:8082
     networks:
-      - cassandra_network
+      - common-network
 
 networks:
-  cassandra_network:
-    name: cassandra_cluster_network
+  common-network:
     driver: bridge
+    name: common-network

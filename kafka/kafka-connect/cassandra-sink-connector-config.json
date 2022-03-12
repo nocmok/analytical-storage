@@ -1,0 +1,33 @@
+{
+  "name" : "cassandra_sink_connector",
+  "config" : {
+    "confluent.topic.bootstrap.servers" : "kafka-0:29092",
+    "confluent.topic.replication.factor" : "1",
+
+    "connector.class" : "io.confluent.connect.cassandra.CassandraSinkConnector",
+    "topic.user_event.connect.user_event.mapping": "user_id=value.user_id, video_id=value.video_id, event_type=value.event_type, event_time=value.event_time",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable" : false,
+    "value.converter.schemas.enable" : false,
+
+    "transforms": "ValueToKey,RegexRouter",
+    "transforms.ValueToKey.type":"org.apache.kafka.connect.transforms.ValueToKey",
+    "transforms.ValueToKey.fields":"user_id",
+    "transforms.RegexRouter.type" : "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.RegexRouter.regex" : "ru\\.analytical\\.storage\\.event",
+    "transforms.RegexRouter.replacement" : "user_event",
+
+    "tasks.max" : "1",
+    "topics" : "ru.analytical.storage.event",
+    "cassandra.contact.points" : "cassandra-node-1,cassandra-node-2,cassandra-node-3",
+    "cassandra.port" : 9042,
+    "cassandra.local.datacenter" : "vla",
+    "cassandra.security" : "NONE",
+    "cassandra.keyspace" : "kion",
+
+    "cassandra.consistency.level" : "LOCAL_QUORUM",
+    "cassandra.deletes.enabled" : false,
+    "cassandra.write.mode" : "Insert"
+  }
+}
