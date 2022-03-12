@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   kafka-connect:
-    image: nyusafonov/kafka-connect-cassandra:latest
+    image: nyusafonov/kafka-connect-casssandra:latest
     container_name: 'kafka-connect'
     ports:
       - 8083:8083
