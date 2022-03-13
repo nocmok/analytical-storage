@@ -6,6 +6,7 @@ services:
     container_name: 'kafka-connect'
     ports:
       - 8083:8083
+      - 9105:9102
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka-0:29092
       CONNECT_REST_PORT: 8083
@@ -20,8 +21,12 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      EXTRA_ARGS: -javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar=9102:/opt/prometheus/prom-jmx-agent-config.yml
     networks:
       - common-network
+    volumes:
+      - ./prom-jmx-agent-config.yml:/opt/prometheus/prom-jmx-agent-config.yml
+      # - ./prometheus/jmx_prometheus_javaagent-0.16.1.jar:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar
 
 networks:
   common-network:
