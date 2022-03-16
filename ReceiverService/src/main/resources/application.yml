@@ -6,7 +6,7 @@ spring:
       buffer-memory: ${KAFKA_BUFFER_MEMORY:33554432}
       batch-size: ${KAFKA_BATCH_SIZE:1048576}
       linger-ms-config: ${KAFKA_LINGER_MS_CONFIG:1000}
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: 212.109.214.181:29092
 
 management:
   endpoints:
