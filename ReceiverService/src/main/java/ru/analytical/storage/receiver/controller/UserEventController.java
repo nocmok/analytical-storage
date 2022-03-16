@@ -30,7 +30,6 @@ public class UserEventController {
     @Operation(summary = "Сохраняет событие пользователя")
     public ResponseEntity<String> saveUserEvent(@RequestBody UserEvent userEvent) {
         changeUserEventToRandomValue(userEvent);
-        log.info("Random UserEvent: {}", userEvent);
 
         userEventsProducer.sendUserEvent(String.valueOf(userEvent.getUserId()), userEvent);
         return ResponseEntity.ok().build();
