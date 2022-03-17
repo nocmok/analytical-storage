@@ -4,8 +4,8 @@ plugins {
 	id 'java'
 }
 
-group = 'data_generator'
-version = '0.0.1-SNAPSHOT'
+group = 'http_adapter'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 repositories {

@@ -1,8 +1,9 @@
-package data_generator;
+package http_adapter;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,10 @@ public class Controller {
     @Autowired
     private CqlSession session;
 
-    private Random random = new Random(0);
+    @Value("${http_adapter.rows_to_fetch}")
+    private Integer rowsToFetch;
+
+    private Random random = new Random();
 
     private List<UserEvent> mapRsToUserEventList(ResultSet rs) {
         var events = new ArrayList<UserEvent>();
@@ -33,7 +37,7 @@ public class Controller {
 
     @GetMapping
     public List<UserEvent> selectRequest() {
-        var preparedStatement = session.prepare("select * from kion.user_event where user_id = ? limit 5000");
+        var preparedStatement = session.prepare("select * from kion.user_event where user_id = ? limit " + rowsToFetch);
         return mapRsToUserEventList(session.execute(preparedStatement.bind((long) random.nextInt(1001) + 1)));
     }
 
