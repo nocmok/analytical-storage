@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  http-adapter:
+    image: nyusafonov/http-adapter:latest
+    container_name: 'http-adapter'
+    environment:
+      SERVER_PORT: 8080
+      SERVER_BIND_ADDRESS: http-adapter
+      CASSANDRA_CONTACT_POINTS: "212.109.214.181:9042,193.8.211.143:9042,212.109.214.253:9042"
+      CASSANDRA_N_CLIENTS: 100
+      ROWS_TO_FETCH: 200
+      JAVA_OPTS: "-Xmx1G -Xms500m"
+    ports:
+      - 18080:8080
+      - 9100:9100
