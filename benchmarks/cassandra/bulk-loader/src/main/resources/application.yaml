@@ -1,0 +1,6 @@
+cassandra:
+contact_points: ${CASSANDRA_CONTACT_POINTS:212.109.214.181:9042,193.8.211.143:9042,212.109.214.253:9042}
+n_clients: ${CASSANDRA_N_CLIENTS:100}
+
+http_adapter:
+rows_to_fetch: ${ROWS_TO_FETCH:200}

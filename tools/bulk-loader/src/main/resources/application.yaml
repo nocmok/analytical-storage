@@ -1,0 +1,9 @@
+cassandra:
+  contact_points: ${CASSANDRA_CONTACT_POINTS:212.109.214.181:9042,193.8.211.143:9042,212.109.214.253:9042}
+  n_clients: ${CASSANDRA_N_CLIENTS:2}
+bulk_loader:
+  n_threads: ${BULK_LOADER_N_THREADS:5000}
+  batches_to_insert: ${BULK_LOADER_BATHCES_TO_INSERT:1000}
+  batch_size: ${BULK_LOADER_BATCH_SIZE:10000}
+  id_file: ${BULK_LOADER_ID_FILE:./ids.txt}
+  n_users: ${BULK_LOADER_N_USERS:100000}
