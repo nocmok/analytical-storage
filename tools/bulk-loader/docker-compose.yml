@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  bulk-loader:
+    image: nyusafonov/bulk-loader:latest
+    container_name: 'bulk-loader'
+    restart: always
+    environment:
+      CASSANDRA_CONTACT_POINTS: "212.109.214.181:9042"
+      CASSANDRA_N_CLIENTS: 5
+      BULK_LOADER_N_THREADS: 5000
+      BULK_LOADER_BATHCES_TO_INSERT: 300000
+      BULK_LOADER_BATCH_SIZE: 10000
+      BULK_LOADER_N_USERS: 1000000
+      BULK_LOADER_ID_FILE: /opt/bulk_loader/ids.txt
+      JAVA_OPTS: "-Xmx1G -Xms500m"
+    volumes:
+      - ./ids.txt:/opt/bulk_loader/ids.txt

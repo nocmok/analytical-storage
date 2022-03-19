@@ -38,7 +38,7 @@ public class Controller {
     @GetMapping
     public List<UserEvent> selectRequest() {
         var preparedStatement = session.prepare("select * from kion.user_event where user_id = ? limit " + rowsToFetch);
-        return mapRsToUserEventList(session.execute(preparedStatement.bind((long) random.nextInt(1001) + 1)));
+        return mapRsToUserEventList(session.execute(preparedStatement.bind((long) random.nextInt(100001) + 1)));
     }
 
     private static class UserEvent {
