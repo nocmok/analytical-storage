@@ -47,9 +47,10 @@ def main():
 
         method, url, case = method.strip(), url.strip(), case.strip()
 
-        headers = "Host: 192.168.88.129:18124\r\n" + \
+        headers = "Host:  212.109.214.253:8081\r\n" + \
             "User-Agent: tank\r\n" + \
             "Accept: */*\r\n" + \
+            "Content-Type: application/json\r\n" + \
             "Connection: Close"
 
         sys.stdout.write(make_ammo(method, url, headers, case, body))

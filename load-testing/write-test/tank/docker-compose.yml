@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  yandex-tank:
+    container_name: writing-tank
+    image: direvius/yandex-tank:latest
+    volumes:
+      - ./:/var/loadtest
+
+  

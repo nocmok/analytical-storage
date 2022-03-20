@@ -25,4 +25,5 @@ cassandra:
 
 http_adapter:
   rows_to_fetch: ${ROWS_TO_FETCH:200}
+  n_users: ${HTTP_ADAPTER_N_USERS:1000000}
 

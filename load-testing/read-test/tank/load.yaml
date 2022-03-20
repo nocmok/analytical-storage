@@ -1,0 +1,15 @@
+overload:
+  enabled: true
+  package: yandextank.plugins.DataUploader
+  token_file: "token.txt"
+phantom:
+  address: http-adapter:8080
+  ammo_type: phantom
+  ammofile: ammofile.txt
+  load_profile:
+    load_type: rps
+    schedule: const(250,60m)
+console:
+  enabled: false
+telegraf:
+  enabled: false
