@@ -1,7 +1,7 @@
 {
   "name" : "cassandra_sink_connector",
   "config" : {
-    "confluent.topic.bootstrap.servers" : "212.109.214.181:29092",
+    "confluent.topic.bootstrap.servers" : "${KAFKA_CONNECT_BOOTSTRAP_SERVERS}",
     "confluent.topic.replication.factor" : "1",
 
     "connector.class" : "io.confluent.connect.cassandra.CassandraSinkConnector",
@@ -20,8 +20,8 @@
 
     "tasks.max" : "1",
     "topics" : "ru.analytical.storage.event",
-    "cassandra.contact.points" : "212.109.214.181,193.8.211.143,212.109.214.253",
-    "cassandra.port" : 9042,
+    "cassandra.contact.points" : "${CASSANDRA_HOSTS}",
+    "cassandra.port" : "${CASSANDRA_CLIENT_PORT}",
     "cassandra.local.datacenter" : "vla",
     "cassandra.security" : "NONE",
     "cassandra.keyspace" : "kion",

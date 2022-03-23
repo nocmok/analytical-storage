@@ -18,7 +18,7 @@ create table if not exists kion.user_event_kafka
     event_type Int64
 ) ENGINE = Kafka()
 SETTINGS
-    kafka_broker_list = '192.168.88.129:29092',
+    kafka_broker_list = '${KAFKA_BOOTSTRAP_SERVERS}',
     kafka_topic_list = 'ru.analytical.storage.event',
     kafka_group_name = 'ru.analytical.storage.event.clickhouse',
     kafka_format = 'JSONEachRow',

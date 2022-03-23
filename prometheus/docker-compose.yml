@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: bitnami/prometheus:2.33.4
+    ports:
+      - ${PROMETHEUS_EXTERNAL_PORT}:9090
+    volumes:
+      - ./.prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./data:/opt/bitnami/prometheus/data

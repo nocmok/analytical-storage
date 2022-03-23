@@ -1,3 +1,5 @@
 #!/bin/bash
 
-curl -s -X POST -H 'Content-Type: application/json' --data @cassandra-sink-connector-config.json http://localhost:8083/connectors
+export config_file=$(dirname $0)/cassandra-sink-connector-config.json
+source $(dirname $0)/env.bash
+curl -s -X POST -H 'Content-Type: application/json' -d "$(cat $config_file | envsubst)" http://localhost:8083/connectors

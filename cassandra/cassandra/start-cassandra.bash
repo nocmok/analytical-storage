@@ -1,3 +1,3 @@
 #!/bin/bash
-source env.bash
-docker-compose -f docker-compose.yml up -d
+source $(dirname $0)/env.bash
+docker-compose -f $(dirname $0)/docker-compose.yml up -d
