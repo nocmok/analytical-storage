@@ -5,13 +5,13 @@ services:
     image: nyusafonov/kafka:latest
     container_name: 'kafka-0'
     ports:
-      - 29092:29092
-      - 9102:9102
+      - ${KAFKA_CLIENT_EXTERNAL_PORT}:29092
+      - ${PROMETHEUS_JMX_EXTERNAL_PORT}:9102
     environment:
       - KAFKA_BROKER_ID=1
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper-0:2181
-      - KAFKA_LISTENERS=INSIDE://:9092,OUTSIDE://:29092
-      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka-0:9092,OUTSIDE://212.109.214.181:29092
+      - KAFKA_ZOOKEEPER_CONNECT=${KAFKA_ZOOKEEPER_HOST}:${KAFKA_ZOOKEEPER_PORT}
+      - KAFKA_LISTENERS=INSIDE://:9092,OUTSIDE://:${KAFKA_CLIENT_EXTERNAL_PORT}
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka-0:9092,OUTSIDE://${MY_PUBLIC_IP}:${KAFKA_CLIENT_EXTERNAL_PORT}
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
@@ -21,10 +21,3 @@ services:
       - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=60000
     volumes:
      - ./logs:/opt/kafka/logs
-    networks:
-      - common-network
-
-networks:
-  common-network:
-    driver: bridge
-    name: common-network

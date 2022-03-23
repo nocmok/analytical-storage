@@ -5,16 +5,16 @@ services:
     image: nyusafonov/kafka-connect-casssandra:latest
     container_name: 'kafka-connect'
     ports:
-      - 8083:8083
-      - 9105:9102
+      - ${KAFKA_CONNECT_REST_EXTERNAL_PORT}:8083
+      - ${PROMETHEUS_JMX_PORT}:9102
     environment:
-      CONNECT_BOOTSTRAP_SERVERS: 212.109.214.181:29092
+      CONNECT_BOOTSTRAP_SERVERS: ${KAFKA_CONNECT_BOOTSTRAP_SERVERS}
       CONNECT_REST_PORT: 8083
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connect-jars
       CONNECT_GROUP_ID: kafka-connect
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-      CONNECT_REST_ADVERTISED_HOST_NAME: 212.109.214.253
+      CONNECT_REST_ADVERTISED_HOST_NAME: ${MY_PUBLIC_IP}
       CONNECT_CONFIG_STORAGE_TOPIC: connect.configs
       CONNECT_OFFSET_STORAGE_TOPIC: connect.offsets
       CONNECT_STATUS_STORAGE_TOPIC: connect.status
@@ -22,13 +22,6 @@ services:
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
       EXTRA_ARGS: -javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar=9102:/opt/prometheus/prom-jmx-agent-config.yml
-    networks:
-      - common-network
     volumes:
       - ./prom-jmx-agent-config.yml:/opt/prometheus/prom-jmx-agent-config.yml
-
-networks:
-  common-network:
-    driver: bridge
-    name: common-network
     

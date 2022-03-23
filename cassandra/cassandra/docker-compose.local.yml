@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  cassandra-node-1:
+    image: nyusafonov/cassandra:latest
+    container_name: "cassandra-node-1"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_BROADCAST_ADDRESS=cassandra-node-1
+      - CASSANDRA_SEEDS=cassandra-node-1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - CASSANDRA_DC=vla
+      - CASSANDRA_RACK=no_rack
+      - JVM_OPTS=-javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar=9102:/opt/prometheus/prom-jmx-agent-config.yml
+    volumes:
+      - ./cassandra-node-1-data:/var/lib/cassandra
+      - ./prom-jmx-agent-config.yml:/opt/prometheus/prom-jmx-agent-config.yml
+    ports:
+      - 9041:9042
+      - 9104:9102
+    networks:
+      - local-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 8gb
+
+networks:
+  common-network:
+    driver: bridge
+    name: local-network
