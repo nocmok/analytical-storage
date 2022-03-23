@@ -16,7 +16,7 @@ version: '3.8'
 services:
 
   cassandra-node:
-    image: cassandra:3.11
+    image: nyusafonov/cassandra:latest
     container_name: cassandra-node
     environment:
       - CASSANDRA_CLUSTER_NAME=${CASSANDRA_CLUSTER_NAME}
@@ -25,33 +25,12 @@ services:
       - CASSANDRA_ENDPOINT_SNITCH=${CASSANDRA_ENDPOINT_SNITCH}
       - CASSANDRA_DC=${CASSANDRA_DC}
       - CASSANDRA_RACK=${CASSANDRA_RACK}
+      - CASSANDRA_LISTEN_ADDRESS=${CASSANDRA_LISTEN_ADDRESS}
+      - JVM_OPTS=-javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar=9102:/opt/prometheus/prom-jmx-agent-config.yml
     volumes:
       - ./data:/var/lib/cassandra
+      - ./prom-jmx-agent-config.yml:/opt/prometheus/prom-jmx-agent-config.yml
     ports:
       - ${CASSANDRA_EXTERNAL_CLIENT_PORT}:9042
       - ${CASSANDRA_EXTERNAL_GOSSIP_PORT}:7000
-    networks:
-      - cassandra_network
-
-  stargate:
-    image: stargateio/stargate-3_11:v1.0.50
-    container_name: stargate
-    depends_on:
-      - cassandra
-    environment:
-      - CLUSTER_VERSION=3.11
-      - CLUSTER_NAME=${CASSANDRA_CLUSTER_NAME}
-      - DATACENTER_NAME=${CASSANDRA_DC}
-      - RACK_NAME=${CASSANDRA_RACK}
-      - SEED=cassandra-node
-      - ENABLE_AUTH=false
-    ports:
-      - ${STARGATE_REST_API_PORT}:8081
-      - ${STARGATE_AUTH_PORT}:8082
-    networks:
-      - cassandra_network
-
-networks:
-  cassandra_network:
-    name: cassandra-network
-    driver: bridge
+      - ${PROMETHEUS_EXTERNAL_PORT}:9102

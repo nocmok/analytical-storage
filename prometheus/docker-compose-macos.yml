@@ -7,3 +7,11 @@ services:
       - 9090:9090
     volumes:
       - ./prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./data:/opt/bitnami/prometheus/data
+    networks:
+      - common-network
+
+networks:
+  common-network:
+    driver: bridge
+    name: common-network
