@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: zookeeper:3.7.0
+    container_name: 'zookeeper'
+    environment:
+      - ZOO_AUTOPURGE_PURGEINTERVAL=1
+      - ZOO_AUTOPURGE_SNAPRETAINCOUNT=3
+      - JVMFLAGS=-Xmx1G -Xms128M
+      - ZOO_CFG_EXTRA=clientPort=2181 metricsProvider.className=org.apache.zookeeper.metrics.prometheus.PrometheusMetricsProvider metricsProvider.httpPort=9100
+      - ZOO_LOG4J_PROP=INFO, ROLLINGFILE
+    ports:
+      - 12181:2181
+      - 19105:9100
+    volumes:
+      - ./logs:/logs
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    name: local-network
+    driver: bridge
