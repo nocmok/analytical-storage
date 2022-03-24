@@ -26,7 +26,7 @@
     "cassandra.security" : "NONE",
     "cassandra.keyspace" : "kion",
 
-    "cassandra.consistency.level" : "LOCAL_QUORUM",
+    "cassandra.consistency.level" : "${WRITE_CONSISTENCY_LEVEL}",
     "cassandra.deletes.enabled" : false,
     "cassandra.write.mode" : "Insert"
   }

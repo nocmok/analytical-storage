@@ -5,13 +5,12 @@ services:
     container_name: clickhouse
     image: lunalabsltd/clickhouse-server:21.7.2.7-arm
     ports:
-      - ${CLICKHOUSE_TCP_PORT}:9000
-      - ${CLICKHOUSE_HTTP_PORT}:8123
-      - ${CLICKHOUSE_INTERSERVER_HTTP_PORT}:${CLICKHOUSE_INTERSERVER_HTTP_PORT}
-      - ${PROMETHEUS_EXPORTER_PORT}:9100
+      - 19000:9000
+      - 18123:8123
+      - 19010:19010
+      - 19104:9100
     environment:
-      PROMETHEUS_EXPORTER_PORT: ${PROMETHEUS_EXPORTER_PORT}
-      CLICKHOUSE_INTERSERVER_HTTP_PORT: ${CLICKHOUSE_INTERSERVER_HTTP_PORT}
+      CLICKHOUSE_INTERSERVER_HTTP_PORT: 19010
     volumes:
       - ./data:/var/lib/clickhouse
       - ./logs:/var/log/clickhouse-server
@@ -19,3 +18,10 @@ services:
       - ./users.xml:/etc/clickhouse-server/users.xml
       - ./config.d:/etc/clickhouse-server/config.d
       - ./user.d:/etc/clickhouse-server/user.d
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    name: local-network
+    driver: bridge

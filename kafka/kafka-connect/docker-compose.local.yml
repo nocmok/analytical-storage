@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  kafka-connect:
+    image: nyusafonov/kafka-connect-casssandra:latest
+    container_name: 'kafka-connect'
+    ports:
+      - 18083:8083
+      - 19102:9100
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_REST_PORT: 8083
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components,/data/connect-jars
+      CONNECT_GROUP_ID: kafka-connect
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_CONFIG_STORAGE_TOPIC: connect.configs
+      CONNECT_OFFSET_STORAGE_TOPIC: connect.offsets
+      CONNECT_STATUS_STORAGE_TOPIC: connect.status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: "1"
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: "1"
+      EXTRA_ARGS: -javaagent:/opt/prometheus/jmx_prometheus_javaagent-0.16.1.jar=9100:/opt/prometheus/prom-jmx-agent-config.yml
+    volumes:
+      - ./prom-jmx-agent-config.yml:/opt/prometheus/prom-jmx-agent-config.yml
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    name: local-network
+    driver: bridge
+    

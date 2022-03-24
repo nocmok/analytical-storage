@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  prometheus:
+    image: bitnami/prometheus:2.33.4
+    ports:
+      - 19090:9090
+    volumes:
+      - ./prometheus-local.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - ./data:/opt/bitnami/prometheus/data
+    networks:
+      - local-network
+
+networks:
+  local-network:
+    name: local-network
+    driver: bridge

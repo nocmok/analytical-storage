@@ -1,8 +1,9 @@
 #!/bin/bash
 
-yes y | bash $(dirname $0)/kafka/kafka-connect/stop-kafka-connect.bash
-yes y | bash $(dirname $0)/ReceiverService/stop-receiver-service.bash
-yes y | bash $(dirname $0)/prometheus/stop-prometheus.bash
-yes y | bash $(dirname $0)/kafka/kafka/stop-kafka.bash
-yes y | bash $(dirname $0)/cassandra/cassandra/stop-cassandra.bash
-yes y | bash $(dirname $0)/zookeeper/stop-zookeeper.bash
+yes y | docker-compose -f $(dirname $0)/zookeeper/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/kafka/kafka/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/cassandra/cassandra/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/clickhouse/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/kafka/kafka-connect/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/receiver-service/docker-compose.local.yml down
+yes y | docker-compose -f $(dirname $0)/prometheus/docker-compose.local.yml down
